@@ -942,9 +942,9 @@ method must, when invoked, run these steps:
 
 <h3 id=constructing-events>Constructing events</h3>
 
-When a <dfn export for=Event id=concept-event-constructor>constructor</dfn> of the
-{{Event}} interface, or of an interface that inherits from the {{Event}} interface, is
-invoked, these steps must be run:
+<p>When a <dfn export for=Event id=concept-event-constructor>constructor</dfn> of the {{Event}}
+interface, or of an interface that inherits from the {{Event}} interface, is invoked, these steps
+must be run:
 
 <ol>
  <li><p>Create an <a>event</a> that uses the interface the constructor was invoked upon.
@@ -959,6 +959,20 @@ invoked, these steps must be run:
  <a>dictionary member</a>.
 
  <li><p>Return the <a>event</a>.
+</ol>
+
+<p>To <dfn export for=Event id=concept-event-create>create</dfn> an <a>event</a>
+<var>eventConstructor</var>, optionally with name <var>e</var>, run these steps:</p>
+
+<ol>
+ <li><p>If <var>e</var> is not given, then let <var>e</var> be the empty string.
+
+ <li><p>Let <var>event</var> be the result of <a lt=constructor>invoking</a> the initial value of
+ <var>eventConstructor</var> with as argument <var>e</var>.
+
+ <li><p>Initialize <var>event</var>'s <code for=Event>isTrusted</code> attribute to true.
+
+ <li><p>Return <var>event</var>.
 </ol>
 
 
@@ -1447,10 +1461,8 @@ initialized, and a <var>legacy target override flag</var>, run these steps:
  <li><p>If <var>eventConstructor</var> is not given, then let <var>eventConstructor</var> be
  {{Event}}.
 
- <li><p>Let <var>event</var> be the result of <a for=Event lt=constructor>invoking</a> the initial
- value of <var>eventConstructor</var> with the argument <var>e</var>.
-
- <li><p>Initialize <var>event</var>'s {{Event/isTrusted}} attribute to true.
+ <li><p>Let <var>event</var> be the result of <a>creating</a> <var>eventConstructor</var> with
+ <var>e</var>.
 
  <li>
   <p>Initialize any other IDL attributes of <var>event</var> as described in the invocation of this
@@ -5206,8 +5218,9 @@ invoked, must run these steps:
   which case the initial value of {{TouchEvent}} is undefined.
 
  <li><p>Let <var>event</var> be the result of <a for=Event lt=constructor>invoking</a> the initial
- value of <var>constructor</var> with the empty string as argument.
- <!-- "initial value" as in before script could get to it -->
+ value of <var>constructor</var> with as argument the empty string.
+ <!-- "initial value" as in before script could get to it
+      we don't use "create" here because isTrusted should be false -->
 
  <li><p>Unset <var>event</var>'s <a>initialized flag</a>.
 

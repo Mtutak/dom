@@ -713,8 +713,8 @@ must return the value it was initialized to.</p>
     <li>Set <a data-link-type="dfn" href="#context-object">context object</a>’s <code class="idl"><a data-link-type="idl" href="#dom-customevent-detail">detail</a></code> attribute to <var>detail</var>. 
    </ol>
    <h3 class="heading settled" data-level="3.4" id="constructing-events"><span class="secno">3.4. </span><span class="content">Constructing events</span><a class="self-link" href="#constructing-events"></a></h3>
-   <p>When a <dfn data-dfn-for="Event" data-dfn-type="dfn" data-export="" id="concept-event-constructor">constructor<a class="self-link" href="#concept-event-constructor"></a></dfn> of the <code class="idl"><a data-link-type="idl" href="#event">Event</a></code> interface, or of an interface that inherits from the <code class="idl"><a data-link-type="idl" href="#event">Event</a></code> interface, is
-invoked, these steps must be run:</p>
+   <p>When a <dfn data-dfn-for="Event" data-dfn-type="dfn" data-export="" id="concept-event-constructor">constructor<a class="self-link" href="#concept-event-constructor"></a></dfn> of the <code class="idl"><a data-link-type="idl" href="#event">Event</a></code> interface, or of an interface that inherits from the <code class="idl"><a data-link-type="idl" href="#event">Event</a></code> interface, is invoked, these steps
+must be run: </p>
    <ol>
     <li>
      <p>Create an <a data-link-type="dfn" href="#concept-event">event</a> that uses the interface the constructor was invoked upon. </p>
@@ -727,6 +727,17 @@ invoked, these steps must be run:</p>
  the <a data-link-type="dfn" href="https://heycam.github.io/webidl/#dfn-dictionary-member">dictionary member</a> and then set the attribute to the value of that <a data-link-type="dfn" href="https://heycam.github.io/webidl/#dfn-dictionary-member">dictionary member</a>. </p>
     <li>
      <p>Return the <a data-link-type="dfn" href="#concept-event">event</a>. </p>
+   </ol>
+   <p>To <dfn data-dfn-for="Event" data-dfn-type="dfn" data-export="" id="concept-event-create">create<a class="self-link" href="#concept-event-create"></a></dfn> an <a data-link-type="dfn" href="#concept-event">event</a> <var>eventConstructor</var>, optionally with name <var>e</var>, run these steps:</p>
+   <ol>
+    <li>
+     <p>If <var>e</var> is not given, then let <var>e</var> be the empty string. </p>
+    <li>
+     <p>Let <var>event</var> be the result of <a data-link-type="dfn" href="#concept-event-constructor">invoking</a> the initial value of <var>eventConstructor</var> with as argument <var>e</var>. </p>
+    <li>
+     <p>Initialize <var>event</var>’s <code for="Event">isTrusted</code> attribute to true. </p>
+    <li>
+     <p>Return <var>event</var>. </p>
    </ol>
    <h3 class="heading settled" data-level="3.5" id="defining-event-interfaces"><span class="secno">3.5. </span><span class="content">Defining event interfaces</span><a class="self-link" href="#defining-event-interfaces"></a></h3>
    <p>In general, when defining a new interface that inherits from <code class="idl"><a data-link-type="idl" href="#event">Event</a></code> please always ask
@@ -1070,10 +1081,7 @@ initialized, and a <var>legacy target override flag</var>, run these steps: </p>
     <li>
      <p>If <var>eventConstructor</var> is not given, then let <var>eventConstructor</var> be <code class="idl"><a data-link-type="idl" href="#event">Event</a></code>. </p>
     <li>
-     <p>Let <var>event</var> be the result of <a data-link-type="dfn" href="#concept-event-constructor">invoking</a> the initial
- value of <var>eventConstructor</var> with the argument <var>e</var>. </p>
-    <li>
-     <p>Initialize <var>event</var>’s <code class="idl"><a data-link-type="idl" href="#dom-event-istrusted">isTrusted</a></code> attribute to true. </p>
+     <p>Let <var>event</var> be the result of <a data-link-type="dfn" href="#concept-event-create">creating</a> <var>eventConstructor</var> with <var>e</var>. </p>
     <li>
      <p>Initialize any other IDL attributes of <var>event</var> as described in the invocation of this
   algorithm. </p>
@@ -3269,7 +3277,7 @@ invoked, must run these steps: </p>
   which case the initial value of <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/touch-events/#touchevent-interface">TouchEvent</a></code> is undefined. </p>
     <li>
      <p>Let <var>event</var> be the result of <a data-link-type="dfn" href="#concept-event-constructor">invoking</a> the initial
- value of <var>constructor</var> with the empty string as argument. </p>
+ value of <var>constructor</var> with as argument the empty string. </p>
     <li>
      <p>Unset <var>event</var>’s <a data-link-type="dfn" href="#initialized-flag">initialized flag</a>. </p>
     <li>
@@ -5808,6 +5816,7 @@ neighboring rights to this work.</p>
    <li><a href="#converted-to-ascii-lowercase">converted to ASCII lowercase</a><span>, in §2.2</span>
    <li><a href="#converted-to-ascii-uppercase">converted to ASCII uppercase</a><span>, in §2.2</span>
    <li><a href="#converting-nodes-into-a-node">converting nodes into a node</a><span>, in §4.2.6</span>
+   <li><a href="#concept-event-create">create</a><span>, in §3.4</span>
    <li><a href="#concept-create-element">create an element</a><span>, in §4.9</span>
    <li><a href="#dom-document-createattribute">createAttribute(localName)</a><span>, in §4.5</span>
    <li><a href="#dom-document-createattributens">createAttributeNS(namespace, qualifiedName)</a><span>, in §4.5</span>
